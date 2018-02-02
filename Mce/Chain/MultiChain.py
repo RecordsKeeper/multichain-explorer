@@ -18,10 +18,10 @@ from .Sha256Chain import Sha256Chain
 
 class MultiChain(Sha256Chain):
     def __init__(chain, **kwargs):
-        chain.name = 'MultiChain'
+        chain.name = 'RecordsKeeper'
         chain.dirname = ''
         chain.code3 = '???'
-        # MultiChain handshake is randomly created, so use Bitcoin compatible network settings as the default.
+        # RecordsKeeper handshake is randomly created, so use Bitcoin compatible network settings as the default.
         chain.address_version = '\x00'
         chain.script_addr_vers = '\x05'
         chain.magic = '\xf9\xbe\xb4\xd9'
@@ -29,6 +29,6 @@ class MultiChain(Sha256Chain):
         Sha256Chain.__init__(chain, **kwargs)
 
     # We don't set datadir_rpccport.
-    # The port number is found in params.dat and should be set in multichain.conf, e.g. rpcport=XXXX
-    datadir_conf_file_name = "multichain.conf"
+    # The port number is found in params.dat and should be set in rk.conf, e.g. rpcport=XXXX
+    datadir_conf_file_name = "rk.conf"
 
