@@ -90,14 +90,13 @@ DEFAULT_TEMPLATE = """
 	<table><td>
 	<a title="Back to home" href="%(dotdot)s%(HOMEPAGE)s"><img src="%(dotdot)s%(STATIC_PATH)slogo32.png" alt="MultiChain logo" /></a>
 	</td><td style="padding-left: 10px;" valign="middle">
-	<!--<h1>%(h1)s<h1>-->
 	</td></table>
     %(body)s
     <!--<p><a href="%(dotdot)sq">API</a> (machine-readable pages)</p>-->
     <br><br>
     <p style="font-size: smaller">
         <span style="font-style: italic">
-            Powered by <a href="%(ABE_URL)s">%(APPNAME)s</a>
+            Powered by <a href="https://recordskeeper.co/">RecordsKeeper</a>
         </span>
         %(download)s
     </p>
