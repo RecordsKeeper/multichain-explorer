@@ -45,13 +45,13 @@ import threading
 
 __version__ = version.__version__
 # MULTICHAIN START
-ABE_APPNAME = "MultiChain Explorer"
+ABE_APPNAME = "RecordsKeeper Blockchain Explorer"
 ABE_VERSION = __version__
-ABE_URL = 'https://github.com/multichain/multichain-explorer'
+ABE_URL = 'https://github.com/RecordsKeeper/recordskeeper-blockchain-explorer'
 
 COPYRIGHT_YEARS = '2011-2017'
-COPYRIGHT = "Coin Sciences Ltd and Abe developers"
-COPYRIGHT_URL = 'https://github.com/multichain/multichain-explorer'
+COPYRIGHT = "RecordsKeeper, Coin Sciences Ltd and Abe developers"
+COPYRIGHT_URL = 'https://github.com/RecordsKeeper/recordskeeper-blockchain-explorer'
 # MULTICHAIN END
 
 TIME1970 = time.strptime('1970-01-01','%Y-%m-%d')

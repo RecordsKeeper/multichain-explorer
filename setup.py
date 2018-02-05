@@ -3,7 +3,7 @@ from distutils.core import setup
 execfile("Mce/version.py")
 
 setup(
-    name         = "MultiChain Explorer",
+    name         = "RecordsKeeper Blockchain Explorer",
     version      = __version__,
     requires     = ['Crypto.Hash'],
     packages     = ['Mce', 'Mce.Chain'],
@@ -32,10 +32,10 @@ setup(
         'Topic :: Security :: Cryptography',
         #'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    description  = "MultiChain Explorer: a free browser for MultiChain blockchains.",
-    long_description = """MultiChain Explorer reads a MultiChain block chain from disk, loads
+    description  = "RecordsKeeper Blockchain Explorer: a free browser for RecordsKeeper blockchains.",
+    long_description = """RecordsKeeper Explorer reads a RecordsKeeper block chain from disk, loads
 it into a database, indexes it, and provides a web interface to search
-and navigate it.  MultiChain blockchains are similar to the Bitcoin blockchain with
+and navigate it.  RecordsKeeper blockchains are similar to the MultiChain blockchains and Bitcoin blockchain with
 the addition of native assets and permissions.
-MultiChain Explorer is a fork of Abe.""",
+RecordsKeeper Blockchain Explorer is a fork of MultiChain Explorer.""",
     )
