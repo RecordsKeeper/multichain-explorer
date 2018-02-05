@@ -8,9 +8,9 @@ setup(
     requires     = ['Crypto.Hash'],
     packages     = ['Mce', 'Mce.Chain'],
     package_data = {'Mce': ['htdocs/*.*','htdocs/*/*.*']},
-    author       = "Coin Sciences Ltd",
-    author_email = "simon@coinsciences.com",
-    url          = "https://github.com/MultiChain/multichain-explorer",
+    author       = "RecordsKeeper",
+    author_email = "mayank@toshblocks.com",
+    url          = "https://github.com/RecordsKeeper/recordskeeper-blockchain-explorer",
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Console',
