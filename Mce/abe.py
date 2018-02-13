@@ -88,7 +88,7 @@ DEFAULT_TEMPLATE = """
 <body>
     <div class="container">
 	<table><td>
-	<a title="Back to home" href="%(dotdot)s%(HOMEPAGE)s"><img src="%(dotdot)s%(STATIC_PATH)slogo32.png" alt="MultiChain logo" /></a>
+	<a title="Back to home" href="%(dotdot)s%(HOMEPAGE)s"><img src="%(dotdot)s%(STATIC_PATH)slogo32.png" alt="RecordsKeeper logo" /></a>
 	</td><td style="padding-left: 10px;" valign="middle">
 	</td></table>
     %(body)s
@@ -96,7 +96,7 @@ DEFAULT_TEMPLATE = """
     <br><br>
     <p style="font-size: smaller">
         <span style="font-style: italic">
-            Powered by <a href="https://recordskeeper.co/">RecordsKeeper</a>
+            Powered by <a href="https://recordskeeper.co/" target="_blank">RecordsKeeper</a>
         </span>
         %(download)s
     </p>
@@ -731,15 +731,6 @@ class Abe:
                 #v = '%.8g' % v # doesn't work?
                 v = ('%.20f' % v).rstrip('0')  # so instead we force the number of decimal places and strip zeros
             body += html_keyvalue_tablerow(k, v)
-        body += ['</table>']
-        body += ['</div><div class="col-md-6">']
-        body += ['<h3>Blockchain Parameters</h3>']
-        body += ['<table class="table table-bordered table-striped table-condensed">']
-        #body += ['<colgroup><col class="col-md-4"><col class="col-md-8"></colgroup>']
-        for k,v in sorted(params_resp.items()):
-            if k in ('default-network-port', 'default-rpc-port'):
-                continue
-            body += html_keyvalue_tablerow_wrap(50, 300, k, v)
         body += ['</table>']
         body += ['</div></div></div>'] # col, row, container
 
@@ -1524,7 +1515,7 @@ class Abe:
                 msgtype = 'info'
                 msgpanelstyle="margin-bottom: -20px; word-break:break-all;"
 
-        # Add MultiChain HTML
+        # Add RECORDSKEPPER HTML
         if msg is not None:
             body += ['<div style="height:5px;"></div><div class="panel panel-default panel-'+msgtype+'"><div class="panel-body" style="' + msgpanelstyle + '">'+msg+'</div></div>']
 
@@ -1638,8 +1629,8 @@ class Abe:
         body += ['</table>']
         body += ['<p class="text-right">']
         body += [' <a role="button" class="btn btn-default btn-xs" href="../rawtx/', tx['hash'], '">Bitcoin JSON</a>']
-        body += [' <a role="button" class="btn btn-default btn-xs" href="../rpctxjson/', tx['hash'], '">MultiChain JSON</a>']
-        body += [' <a role="button" class="btn btn-default btn-xs" href="../rpctxraw/', tx['hash'], '">MultiChain Hex</a>']
+        body += [' <a role="button" class="btn btn-default btn-xs" href="../rpctxjson/', tx['hash'], '">RecordsKeeper JSON</a>']
+        body += [' <a role="button" class="btn btn-default btn-xs" href="../rpctxraw/', tx['hash'], '">RecordsKeeper Hex</a>']
         body += ['</p>']
 # MULTICHAIN END
 
@@ -2123,7 +2114,7 @@ class Abe:
 
         #body += ['<h3>', asset['name'], '(Asset Reference ', assetref, ')', '</h3>']
         body += ['<p class="text-right">']
-        body += ['<button href="#RawJson" class="btn btn-default btn-xs" data-toggle="collapse">MultiChain JSON</button>']
+        body += ['<button href="#RawJson" class="btn btn-default btn-xs" data-toggle="collapse">RecordsKeeper JSON</button>']
         body += ['<div id="RawJson" class="collapse"><pre>', json.dumps(resp, sort_keys=True, indent=2), '</pre></div></p>']
         #body += [' <a role="button" class="btn btn-default btn-xs" href="../rawtx/', tx['hash'], '">Bitcoin JSON</a>']
 
