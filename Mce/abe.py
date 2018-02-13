@@ -877,7 +877,6 @@ class Abe:
                     except Exception:
                         miner_address = "Unknown"
 
-            miner_address = '<a href="' + page['dotdot'] + '/' + escape(chain.name) + '/address/' + miner + '">' + miner + '</a>'           
             body += [
                 '<tr><td><a href="', page['dotdot'], escape(chain.name), '/block/',
                 abe.store.hashout_hex(hash),
