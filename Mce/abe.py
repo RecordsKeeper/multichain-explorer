@@ -880,7 +880,7 @@ class Abe:
             body += [
                 '<tr><td><a href="', page['dotdot'], escape(chain.name), '/block/',
                 abe.store.hashout_hex(hash),
-                '">', height, '</a>'
+                '">', height, '</a>',
                 '</td><td>', '<a href="google.com">',miner,'</a>',
                 '</td><td>', format_time(int(nTime)),
                 '</td><td>', num_tx,
