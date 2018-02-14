@@ -881,7 +881,7 @@ class Abe:
                 '<tr><td><a href="', page['dotdot'], escape(chain.name), '/block/',
                 abe.store.hashout_hex(hash),
                 '">', height, '</a>'
-                '</td><td>', blockjson['miner'],
+                '</td><td>', miner_address,
                 '</td><td>', format_time(int(nTime)),
                 '</td><td>', num_tx,
                 #'</td><td>', format_satoshis(value_out, chain),
@@ -1843,7 +1843,7 @@ class Abe:
 
         # Display native currency if the blockchain has one
         if abe.get_blockchainparams(chain).get('initial-block-reward', 0) > 0:
-            body += ['<h3>Native Balance</h3>']
+            body += ['<h3>XRK Balance</h3>']
             try:
                 resp = util.jsonrpc(multichain_name, url, "getaddressbalances", address)
                 if len(resp) is 0:
