@@ -1011,7 +1011,7 @@ class Abe:
         body += ['<h3>Transactions</h3>\n']
 
         body += ['<table class="table table-striped"><tr><th>Transaction</th>'
-                 #<th>Fee</th>'
+                 '<th>Fee</th>'
                  '<th>Size (kB)</th>'
                  #<th>From (amount)</th><th>To (amount)</th>'
                  '</tr>\n']
@@ -1087,7 +1087,7 @@ class Abe:
                 body += ['</div>']
 
             body += [
-                     #'</td><td>', format_satoshis(tx['fees'], chain),
+                     '</td><td>', format_satoshis(tx['fees'], chain),
 # MULTICHAIN END
                      '</td><td>', tx['size'] / 1000.0,
                      '</td><td>']
