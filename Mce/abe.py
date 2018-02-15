@@ -990,6 +990,7 @@ class Abe:
 
         body += html_keyvalue_tablerow('Nonce', b['nNonce'])
         body += html_keyvalue_tablerow('Transactions',len(b['transactions']))
+        body += html_keyvalue_tablerow('Transaction Fees', format_satoshis(b['fees'], chain))
         if False:
             body += html_keyvalue_tablerow('Value out', format_satoshis(b['value_out'], chain))
             body += html_keyvalue_tablerow('Transaction Fees', format_satoshis(b['fees'], chain))
