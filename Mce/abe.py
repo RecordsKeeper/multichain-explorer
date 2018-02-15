@@ -1863,60 +1863,6 @@ class Abe:
                 body += ['<div class="alert alert-danger" role="alert">', msg, '</div>']
                 return
 
-        body += ['<h3>Asset Balances</h3>']
-        try:
-            row = abe.store.selectrow("""select pubkey_id from pubkey where pubkey_hash = ?""",
-                                      (abe.store.binin(pubkeyhash),) )
-            assets_resp = abe.store.get_assets(chain)
-            if len(assets_resp) is 0:
-                body += ['None']
-            elif row is not None:
-                pubkey_id = int(row[0])
-
-                # s = json.dumps(assets_resp, sort_keys=True, indent=2)
-                # body += ['<pre>', s, '</pre>']
-
-                body += ['<table class="table table-striped"><tr>'
-                         '<th>Asset Name</th>'
-                         '<th>Asset Reference</th>'
-                         '<th>Transactions</th>'
-                         '<th>Raw Units</th>'
-                         '<th>Balance</th>'
-                         '</tr>']
-
-                assetdict = {}
-                for asset in assets_resp:
-                    # use escaped form as dict key
-                    name = asset.get('name','').encode('unicode-escape')
-                    assetdict[name] = asset
-
-                for row in abe.store.selectall("""
-                    select a.name, a.prefix, b.balance from asset_address_balance b join asset a on (a.asset_id=b.asset_id)
-                    where b.balance>0 and b.pubkey_id=?""",
-                                       (pubkey_id, )):
-                    name, prefix, balance = row
-                    if name is None:
-                        name=''
-                    name = name.encode('unicode-escape')
-                    asset = assetdict[ name ]
-                    assetref = asset['assetref']
-
-                    num_tx = abe.store.get_number_of_transactions_for_asset_address(chain, assetref, pubkey_id)
-
-                    if assetref.endswith(str(prefix)):
-                        balance_display_qty = util.format_display_quantity(asset, balance)
-                        body += ['<tr><td><a href="../../' + escape(chain.name) + '/assetref/' + assetref + '">' + name + '</a>',
-                             '</td><td><a href="../../' + escape(chain.name) + '/assetref/' + assetref + '">' + assetref + '</a>',
-                             '</td><td><a href="../../' + escape(chain.name) + '/assetaddress/' + address + '/' + assetref + '">' + str(num_tx) + '</a>',
-                             '</td><td>', balance,
-                             '</td><td>', balance_display_qty,
-                             '</td></tr>']
-                body += ['</table>']
-        except Exception as e:
-            body += ['<div class="alert alert-danger" role="alert">', 'Failed to get asset information: '+str(e), '</div>']
-            pass
-
-
     # Given an address and asset reference, show transactions for that address and asset
     def handle_assetaddress(abe, page):
         chain = page['chain']
