@@ -1639,7 +1639,7 @@ class Abe:
         asset_txid_dict = abe.get_assets_by_txid_fragment(chain)
 
         body += ['<a name="inputs"><h3>Inputs</h3></a>\n<table class="table table-striped">\n',
-                 '<tr><th>Index</th><th>Previous output</th><th>Native</th>',
+                 '<tr><th>Index</th><th>Previous output</th><th>XRK</th>',
 # MULTICHAIN END
                  '<th>From address</th>']
         if abe.store.keep_scriptsig:
@@ -1651,7 +1651,7 @@ class Abe:
         body += ['</table>\n',
 # MULTICHAIN START
                  '<a name="outputs"><h3>Outputs</h3></a>\n<table class="table table-striped">\n',
-                 '<tr><th>Index</th><th>Redeemed at input</th><th>Native</th>',
+                 '<tr><th>Index</th><th>Redeemed at input</th><th>XRK</th>',
 # MULTICHAIN END
                  '<th>To address</th><th>ScriptPubKey</th></tr>\n']
         for txout in tx['out']:
@@ -1764,7 +1764,7 @@ class Abe:
 
 
         body += ['<a name="inputs"><h3>Inputs</h3></a>\n<table class="table table-striped">\n',
-                 '<tr><th>Index</th><th>Previous output</th><th>Native</th>',
+                 '<tr><th>Index</th><th>Previous output</th><th>XRK</th>',
                  '<th>From address</th>']
         #if abe.store.keep_scriptsig:
         body += ['<th>ScriptSig</th>']
@@ -1778,7 +1778,7 @@ class Abe:
 
         body += ['</table>\n',
                  '<a name="outputs"><h3>Outputs</h3></a>\n<table class="table table-striped">\n',
-                 '<tr><th>Index</th><th>Redeemed at input</th><th>Native</th>',
+                 '<tr><th>Index</th><th>Redeemed at input</th><th>XRK</th>',
                  '<th>To address</th><th>ScriptPubKey</th></tr>\n']
         
         pos = 0
