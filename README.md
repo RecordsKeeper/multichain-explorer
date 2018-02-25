@@ -1,26 +1,27 @@
-MultiChain Explorer
+Recordskeeper Explorer
 ===================
 
-MultiChain Explorer is a free block chain browser for [MultiChain](http://www.multichain.com/) blockchains.
+Recordskeeper Explorer is a free block chain browser for [Recordskeeper](http://recordskeeper.co/) blockchains.
 
-https://github.com/MultiChain/multichain-explorer
-
+https://github.com/RecordsKeeper/recordskeeper-blockchain-explorer
+    
+    Copyright(C) 2017,2018 by Recordskeeper
     Copyright(C) 2015,2016,2017 by Coin Sciences Ltd.
     Copyright(C) 2011,2012,2013 by Abe developers.
     License: GNU Affero General Public License, see the file LICENSE.txt.
     Portions Copyright (c) 2010 Gavin Andresen, see bct-LICENSE.txt.
 
 
-Welcome to MultiChain Explorer!
+Welcome to Recordskeeper Explorer!
 ===============================
 
-This software reads the MultiChain block file, transforms and loads the
+This software reads the Recordskeeper block file, transforms and loads the
 data into a database, and presents a web interface similar to that
 popularized by Bitcoin block explorers like http://blockexplorer.com/.
 
-MultiChain Explorer is a fork of the popular [Abe](https://github.com/bitcoin-abe/bitcoin-abe) project to add support for MultiChain blockchains with assets and permissions.  MultiChain nodes must be online for all explorer functions to work.
+Recordskeeper Explorer is a fork of the popular [Abe](https://github.com/bitcoin-abe/bitcoin-abe) project to add support for recordskeeper blockchains with assets and permissions.  Recordskeeper nodes must be online for all explorer functions to work.
 
-MultiChain Explorer is still under development, so things may break or change!
+Recordskeeper Explorer is still under development, so things may break or change!
 
 
 System Requirements
@@ -47,60 +48,57 @@ On CentOS, you will need to install the following dependencies:
     sudo pip install pycrypto
 
 
-MultiChain Compatibility
+Recordskeeper Compatibility
 ------------------------
 
-The explorer currently supports MultiChain 1.0.x versions (since 1.0 alpha 29) and protocol versions up to `10009`, which is the default for MultiChain 1.0.x. You can check the protocol version of an existing chain using the `getinfo` command.
+The explorer currently supports Recordskeeper-master 1.0.x versions (since 1.0 alpha 29) and protocol versions up to `10009`, which is the default for Recordskeeper-master 1.0.x. You can check the protocol version of an existing chain using the `getinfo` command.
 
-**Note that this Explorer does not yet support MultiChain 2.0 preview releases.**
 
 Installation
 ------------
 
-To install MultiChain Explorer for the current user (recommended):
+To install Recordskeeper Explorer for the current user (recommended):
 
-    cd multichain-explorer
+    cd recordskeeper-blockchain-explorer
     python setup.py install --user
 
-If you have root permission and want to install MultiChain Explorer for all users on the system:
+If you have root permission and want to install Recordskeeper Explorer for all users on the system:
 
-    cd multichain-explorer
+    cd recordskeeper-blockchain-explorer
     sudo python setup.py install
 
-The explorer needs to connect to a local MultiChain node.  Before configuring the explorer, let's make sure you have a MultiChain blockchain up and running.
+The explorer needs to connect to a local Recordskeeper node.  Before configuring the explorer, let's make sure you have a Recordskeeper blockchain up and running.
 
 
-Create and launch a MultiChain Blockchain
+Create and launch a Recordskeeper Blockchain
 -----------------------------------------
 
-If you do not yet have a chain you want to explore, [Download MultiChain](http://www.multichain.com/download-install/) to install MultiChain and create a chain named ````chain1```` as follows:
+If you do not yet have a chain you want to explore, [Download Recordskeeper](http://recordskeeper.co/) to install Recordskeeper and create a chain named ````chain1```` as follows:
 
-    multichain-util create chain1
-    multichaind chain1 -daemon
+    rk-util create chain1
+    rkd chain1 -daemon
 
-By default the [runtime parameter](http://www.multichain.com/developers/runtime-parameters/) ````txindex```` is enabled so that the node keeps track of all transactions across the blockchain, and not just those for the node's wallet. This is required for the explorer to work correctly.
-
-The explorer supports viewing streams which the node has subscribed to.  Launch MultiChain with the runtime parameter ````autosubscribe=streams```` to automatically subscribe to every stream.
+The explorer supports viewing streams which the node has subscribed to.  Launch Recordskeeper with the runtime parameter ````autosubscribe=streams```` to automatically subscribe to every stream.
 
 _The rest of this document assumes your blockchain is named ````chain1````. If not, please substitute accordingly._
 
 
-Configure MultiChain.conf
+Configure rk.conf
 -------------------------
 
-The explorer needs to communicate with the blockchain using JSON-RPC.  When you created the blockchain, the JSON-RPC connection details were automatically created by MultiChain and stored in a file named ````multichain.conf````.
+The explorer needs to communicate with the blockchain using JSON-RPC.  When you created the blockchain, the JSON-RPC connection details were automatically created by Recordskeeper and stored in a file named ````rk.conf````.
 
 The explorer will read this file. If you examine the file you will see a username and password have been auto-generated.
 
-    cd ~/.multichain/chain1/
-    cat multichain.conf
+    cd ~/.rk/chain1/
+    cat rk.conf
 
-All you need to do is add the RPC port number. Copy the ````default-rpc-port```` value from ````params.dat```` and add an entry to ````multichain.conf```` as follows:
+All you need to do is add the RPC port number. Copy the ````default-rpc-port```` value from ````params.dat```` and add an entry to ````rk.conf```` as follows:
 
-    cd ~/.multichain/chain1/
+    cd ~/.rk/chain1/
     grep rpc params.dat
-    # Make a note of the default-rpc-port value, let's say it's 1234, and add it to multichain.conf
-    echo "rpcport=1234" >> multichain.conf
+    # Make a note of the default-rpc-port value, let's say it's 1234, and add it to rk.conf
+    echo "rpcport=1234" >> rk.conf
 
 
 Configure the Explorer
@@ -108,7 +106,7 @@ Configure the Explorer
 
 The bundled example config file ````chain1.example.conf```` can be used as a template for your own chain.
 
-    cd multichain-explorer
+    cd recordskeeper-blockchain-explorer
     cp chain1.example.conf chain1.conf
 
 You can store the config file ````chain1.conf```` anywhere you want. When you launch the explorer you can specify the location of your config file. By default, it will look for a config file in the current directory.
@@ -121,7 +119,7 @@ The following changes can be made:
 * Change ````chain```` to set how the chain should be listed in the explorer.
 * Change ````connect-args```` for the location to store the explorer database.
 
-Note: The explorer will automatically read MultiChain specific parameters such as the magic handshake, address checksum, version and script version bytes from ````params.dat````.
+Note: The explorer will automatically read Recordskeeper specific parameters such as the magic handshake, address checksum, version and script version bytes from ````params.dat````.
 
 
 Launch the Explorer
@@ -129,7 +127,7 @@ Launch the Explorer
 
 To load existing blockchain data into the explorer:
 
-    cd multichain-explorer
+    cd recordskeeper-blockchain-explorer
     python -m Mce.abe --config chain1.conf --commit-bytes 100000 --no-serve
 
 Look for output such as:
@@ -142,7 +140,7 @@ This step may take several minutes to even days depending on chain size and hard
 
 To launch the explorer and serve web pages from your local computer:
 
-    cd multichain-explorer
+    cd recordskeeper-blockchain-explorer
     python -m Mce.abe --config chain1.conf
 
 By default, the explorer will be listening for web requests on port 2750, unless you changed it in the Explorer's configuration file.  In your browser visit:
@@ -151,7 +149,7 @@ By default, the explorer will be listening for web requests on port 2750, unless
 
 To launch the explorer on a server, make sure the explorer is not accidentally terminated when you close your SSH terminal connection.
 
-    cd multichain-explorer
+    cd recordskeeper-blockchain-explorer
     nohup python -m Mce.abe --config chain1.conf &
 
 To check the explorer is runnning, in your browser visit:
