@@ -63,6 +63,7 @@ EPOCH1970 = calendar.timegm(TIME1970)
 DEFAULT_CONTENT_TYPE = "text/html; charset=utf-8"
 DEFAULT_HOMEPAGE = "chains"
 # MULTICHAIN START
+
 DEFAULT_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -1179,7 +1180,7 @@ class Abe:
             return
 
         if tx is None:
-            body += ['<p class="error">Transaction not found.</p>']
+            body += ['<p class="error">Transaction not found. If you have recently submitted the transaction, please wait for 15 seconds or more.</p>']
             return
 
         return abe.show_tx(page, tx)
