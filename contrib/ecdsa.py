@@ -206,7 +206,7 @@ This site is powered by <span style="font-style: italic"> <a href="https://githu
 
         tx_id, tx_version, tx_lockTime, tx_size = abe.get_tx( tx_hash )
         if tx_id is None:
-            body += ['<p class="error">Transaction not found.</p>']
+            body += ['<p class="error">Transaction not found. If you have recently submitted the transaction, please wait for 15 seconds or more.</p>']
             return
 
         block_rows = abe.store.selectall("""
