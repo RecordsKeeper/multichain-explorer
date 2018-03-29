@@ -1180,7 +1180,7 @@ class Abe:
             return
 
         if tx is None:
-            body += ['<p class="error">Transaction not found. If you have recently submitted the transaction, please wait for 15 seconds or more.</p>']
+            body += ['<p class="error">Transaction not found. If you have recently submitted the transaction, please wait for 15 seconds or more.</p><script type="text/javascript">setTimeout( function(){ location.reload(); },15000)</script>']
             return
 
         return abe.show_tx(page, tx)
