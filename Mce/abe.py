@@ -88,10 +88,12 @@ DEFAULT_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-	<table><td>
-	<a title="Back to home" href="%(dotdot)s%(HOMEPAGE)s"><img src="%(dotdot)s%(STATIC_PATH)slogo32.png" alt="RecordsKeeper logo" /></a>
-	</td><td style="padding-left: 10px;" valign="middle">
-	</td></table>
+    	<div class="table-responsive">
+		<table><td>
+		<a title="Back to home" href="%(dotdot)s%(HOMEPAGE)s"><img src="%(dotdot)s%(STATIC_PATH)slogo32.png" alt="RecordsKeeper logo" /></a>
+		</td><td style="padding-left: 10px;" valign="middle">
+		</td></table>
+	</div>
     %(body)s
     <!--<p><a href="%(dotdot)sq">API</a> (machine-readable pages)</p>-->
     <br><br>
@@ -541,7 +543,7 @@ class Abe:
                      '<meta http-equiv="Expires" content="0" />']
         myheader += ['<meta http-equiv="refresh" content="', page_refresh_interval_secs, '" >']
 
-        body += ['<div id="recenttx">']
+        body += ['<div id="recenttx" class="table-responsive">']
         body += abe.create_recent_table(page, chain)
         body += ['</div>']
 
