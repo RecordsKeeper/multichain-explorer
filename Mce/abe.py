@@ -393,11 +393,11 @@ class Abe:
             '<th>Blocks</th>',
             '<th>Transactions</th>',
             #'<th>Time</th>',
-            '<th>Assets</th>',
+            #'<th>Assets</th>',
             '<th>Addresses</th>',
             '<th>Streams</th>',
             '<th>Peers</th>'
-            '<th>Started</th><th>Age (days)</th>',
+            #'<th>Started</th><th>Age (days)</th>',
             #'<th>Coins Created</th>',
             #'<th>Avg Coin Age</th><th>',
             #'% <a href="https://en.bitcoin.it/wiki/Bitcoin_Days_Destroyed">',
@@ -462,10 +462,10 @@ class Abe:
 
                 body += '<td>'
                 if chain.__class__.__name__ is "MultiChain":
-                    if num_assets == -1:
-                        body += '?'
-                    elif num_assets>=0:
-                        body += ['<a href="{0}/assets">'.format(escape(chain.name)), num_assets, '</a>']
+                   # if num_assets == -1:
+                    #    body += '?'
+                    #elif num_assets>=0:
+                     #   body += ['<a href="{0}/assets">'.format(escape(chain.name)), num_assets, '</a>']
                 else:
                     body += ['<td></td>']
                 body += ['<td>', num_addresses, '</td>']
@@ -515,8 +515,8 @@ class Abe:
                         '<td>',
                         '?' if num_peers is -1 else num_peers,
                         '</td>',
-                        '<td>', format_time(started)[:10], '</td>',
-                        '<td>', "{0:.1f}".format(chain_age / 86400.0), '</td>']
+                        #'<td>', format_time(started)[:10], '</td>',
+                        #'<td>', "{0:.1f}".format(chain_age / 86400.0), '</td>']
                         # '<td>', format_satoshis(satoshis, chain), '</td>',
                         # '<td>', avg_age, '</td>',
                         # '<td>', percent_destroyed, '</td>']
