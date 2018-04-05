@@ -994,10 +994,10 @@ class Abe:
 
         body += html_keyvalue_tablerow('Nonce', b['nNonce'])
         body += html_keyvalue_tablerow('Transactions',len(b['transactions']))
-        body += html_keyvalue_tablerow('Transaction Fees', format_satoshis(b['fees'] + ' XRK', chain))
+        body += html_keyvalue_tablerow('Transaction Fees', format_satoshis(b['fees'], chain), ' XRK')
         if False:
             body += html_keyvalue_tablerow('Value out', format_satoshis(b['value_out'], chain))
-            body += html_keyvalue_tablerow('Transaction Fees', format_satoshis(b['fees'] + ' XRK', chain))
+            body += html_keyvalue_tablerow('Transaction Fees', format_satoshis(b['fees'], chain),  ' XRK')
 
         if False:
             body += html_keyvalue_tablerow('Average Coin Age', '%6g' % (b['satoshi_seconds'] / 86400.0 / b['chain_satoshis']) + ' days' if b['chain_satoshis'] and (b['satoshi_seconds'] is not None) else '')
