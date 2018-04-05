@@ -461,13 +461,13 @@ class Abe:
                     #'<td>', format_time(nTime), '</td>']
 
                 body += '<td>'
-                if chain.__class__.__name__ is "MultiChain":
-                   # if num_assets == -1:
+                #if chain.__class__.__name__ is "MultiChain":
+                    #if num_assets == -1:
                     #    body += '?'
                     #elif num_assets>=0:
-                     #   body += ['<a href="{0}/assets">'.format(escape(chain.name)), num_assets, '</a>']
-                else:
-                    body += ['<td></td>']
+                    #    body += ['<a href="{0}/assets">'.format(escape(chain.name)), num_assets, '</a>']
+                #else:
+                    #body += ['<td></td>']
                 body += ['<td>', num_addresses, '</td>']
                 body += '</td>'
 
