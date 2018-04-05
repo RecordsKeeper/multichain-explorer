@@ -826,12 +826,12 @@ class Abe:
         #extra = True
         body += ['<p>', nav, '</p>\n',
 # MULTICHAIN START
-                 '<table class="table table-striped"><tr><th>Block</th><th>Miner</th><th>Approx. Time</th>',
+                 '<table class="table table-striped"><tr><th>Block</th><th>Miner</th><th>Approx. Time (UTC)</th>',
                  '<th>Transactions</th>',
                  #'<th>Value Out</th>',
                  #'<th>Difficulty</th><th>Outstanding</th>',
                  #'<th>Average Age</th>'
-                 '<th>Chain Age</th>',
+                 #'<th>Chain Age</th>',
                  #'<th>% ',
                  #'<a href="https://en.bitcoin.it/wiki/Bitcoin_Days_Destroyed">',
                  #'CoinDD</a></th>',
@@ -892,7 +892,7 @@ class Abe:
                 #'</td><td>', util.calculate_difficulty(int(nBits)),
                 #'</td><td>', format_satoshis(satoshis, chain),
                 #'</td><td>', avg_age,
-                '</td><td>', '%5g' % (seconds / 86400.0),
+                #'</td><td>', '%5g' % (seconds / 86400.0),
                 #'</td><td>', percent_destroyed,
                 ['</td><td>', '%8g' % ss,
                  '</td><td>', '%8g' % total_ss] if extra else '',
@@ -1612,7 +1612,7 @@ class Abe:
                 '<a href="../block/', blk_hash, '">',
                 escape(tx_cc['chain'].name), ', Block ',
                 tx_cc['block_height'] if tx_cc['in_longest'] else [blk_hash[:10], '...', blk_hash[-4:]],
-                '</a> (', format_time(tx_cc['block_nTime']), ')'
+                '</a> (', format_time(tx_cc['block_nTime']), ')', ' UTC'
                 )
 # MULTICHAIN END
 
@@ -2560,8 +2560,8 @@ class Abe:
 
         body += ['<p>', nav, '</p>\n',
                  '<table class="table table-striped"><tr>'
-                 '<th>Time</th>'
-                 '<th>Key</th><th>Value</th><th>Raw Data</th>',
+                 '<th>Time (UTC)</th>'
+                 '<th>Record Key</th><th>Record Value</th><th>Raw Data</th>',
                  '<th>Publisher</th><th>Transaction</th>'
                  '</tr>\n']
 
@@ -2925,7 +2925,7 @@ class Abe:
                  '<h3>Transactions</h3>\n'
                  '<table class="table table-striped">\n<tr><th>Transaction</th><th>Block</th>'
 # MULTICHAIN END
-                 '<th>Approx. Time</th><th>Amount</th><th>Balance</th>'
+                 '<th>Approx. Time (UTC)</th><th>Amount</th><th>Balance</th>'
                  '<th>Currency</th></tr>\n']
 
         for elt in txpoints:
