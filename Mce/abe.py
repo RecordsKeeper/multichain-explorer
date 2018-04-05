@@ -734,7 +734,7 @@ class Abe:
             if k in ('relayfee'):
                 #v = '%.8g' % v # doesn't work?
                 v = ('%.20f' % v).rstrip('0')  # so instead we force the number of decimal places and strip zeros
-            if k in ('balance')
+            if k in ('balance'):
                 v = v + ' XRK'
             body += html_keyvalue_tablerow(k, v)
         body += ['</table>']
