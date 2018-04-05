@@ -519,7 +519,8 @@ class Abe:
                         #'<td>', "{0:.1f}".format(chain_age / 86400.0), '</td>']
                         # '<td>', format_satoshis(satoshis, chain), '</td>',
                         # '<td>', avg_age, '</td>',
-                        # '<td>', percent_destroyed, '</td>']
+                        # '<td>', percent_destroyed, '</td>'
+                        ]
 # MULTICHAIN END
 
             body += ['</tr>\n']
