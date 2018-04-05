@@ -993,10 +993,10 @@ class Abe:
 
         body += html_keyvalue_tablerow('Nonce', b['nNonce'])
         body += html_keyvalue_tablerow('Transactions',len(b['transactions']))
-        body += html_keyvalue_tablerow('Transaction Fees', format_satoshis(b['fees'], chain))
+        body += html_keyvalue_tablerow('Transaction Fees in XRK', format_satoshis(b['fees'], chain))
         if False:
             body += html_keyvalue_tablerow('Value out', format_satoshis(b['value_out'], chain))
-            body += html_keyvalue_tablerow('Transaction Fees', format_satoshis(b['fees'], chain))
+            body += html_keyvalue_tablerow('Transaction Fees in XRK', format_satoshis(b['fees'], chain))
 
         if False:
             body += html_keyvalue_tablerow('Average Coin Age', '%6g' % (b['satoshi_seconds'] / 86400.0 / b['chain_satoshis']) + ' days' if b['chain_satoshis'] and (b['satoshi_seconds'] is not None) else '')
@@ -1014,7 +1014,7 @@ class Abe:
         body += ['<h3>Transactions</h3>\n']
 
         body += ['<table class="table table-striped"><tr><th>Transaction</th>'
-                 '<th>Fee</th>'
+                 '<th>Fee (XRK)</th>'
                  '<th>Size (kB)</th>'
                  #<th>From (amount)</th><th>To (amount)</th>'
                  '</tr>\n']
