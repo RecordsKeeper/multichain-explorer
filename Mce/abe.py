@@ -866,6 +866,7 @@ class Abe:
 # MULTICHAIN START
             miner_address = ''
             miner_block = None
+            miner = ''
             try:
                 miner_block = abe.store.export_block(chain, block_number=height)
             except DataStore.MalformedHash:
