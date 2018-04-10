@@ -3001,7 +3001,7 @@ class Abe:
     def show_search_results(abe, page, found):
         if not found:
             page['body'] = [
-                '<p>No results found.</p>\n', abe.search_form(page)]
+                '<p>No results found. If you have recently submitted the transaction, please wait for 15 seconds or more. </p><a href="javascript:window.location.reload(true)">REFRESH</a>\n', abe.search_form(page)]
             return
 
 # MULTICHAIN START
