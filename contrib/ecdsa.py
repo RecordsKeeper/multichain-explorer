@@ -573,7 +573,7 @@ This site is powered by <span style="font-style: italic"> <a href="https://githu
             '<input name="q" size="64" value="', escape(q), '" />'
             '<button type="submit">Search</button>\n'
             '<br />Address or hash search requires at least the first six'
-            ' characters.</p><br><p>If you have recently submitted the transaction, please wait for 15 seconds or more. </p><br><a href="javascript:window.location.reload(true)">REFRESH</a></form>\n']
+            ' characters.</p></form>\n']
 
     def get_reports(abe):
         rows = abe.store.selectall("select reports.report_id, tx.tx_id, tx.tx_hash, name from reports left join tx on tx.tx_id=reports.tx_id" )

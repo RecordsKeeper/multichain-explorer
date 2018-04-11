@@ -2972,7 +2972,7 @@ class Abe:
             '<input id="search1" type="text" name="q" size="64" value="', escape(q), '" style="height: 32px; margin-right: 10px;"/>'
             '<button type="submit" class="btn" style="height: 32px; vertical-align: middle;">Search</button>\n'
             '<p class="help-block">Address or hash search requires at least the first ',
-            HASH_PREFIX_MIN, ' characters.</p><br><p>If you have recently submitted the transaction, please wait for 15 seconds or more. </p><br><a href="javascript:window.location.reload(true)">REFRESH</a></div></form>\n']
+            HASH_PREFIX_MIN, ' characters.</p></div></form>\n']
 # MULTICHAIN END
 
     def handle_search(abe, page):
@@ -3001,7 +3001,7 @@ class Abe:
     def show_search_results(abe, page, found):
         if not found:
             page['body'] = [
-                '<p>No results found.</p>\n', abe.search_form(page)]
+                '<p>No results found.</p><br><p>If you have recently submitted the transaction, please wait for 15 seconds or more. </p><br><a href="javascript:window.location.reload(true)">REFRESH</a>\n', abe.search_form(page)]
             return
 
 # MULTICHAIN START
