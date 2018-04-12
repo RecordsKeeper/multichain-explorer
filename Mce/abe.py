@@ -881,7 +881,7 @@ class Abe:
                     try:
                         blockjson = abe.store.get_block_by_hash(chain, miner_block['hash'])
                         miner = blockjson['miner']
-                        miner_address = '<a href="' + page['dotdot'] + '/' + escape(chain.name) + '/address/' + miner + '">' + miner + '</a>'
+                        miner_address = miner
                     except Exception:
                         miner_address = "Unknown"
 
@@ -889,7 +889,7 @@ class Abe:
                 '<tr><td><a href="', page['dotdot'], escape(chain.name), '/block/',
                 abe.store.hashout_hex(hash),
                 '">', height, '</a>'
-                '</td><td><a href="', page['dotdot'], escape(chain.name), '/address/', miner, '">', miner, '</a>'
+                '</td><td>', miner_address,
                 '</td><td>', format_time(int(nTime)),
                 '</td><td>', num_tx,
                 #'</td><td>', format_satoshis(value_out, chain),
