@@ -564,7 +564,7 @@ class Abe:
         :return:
         """
         body = []
-        body += ['<h3>New Transactions</h3>'
+        body += ['<h3>LLatest Transactions</h3>'
             '<table class="table table-striped">\n',
             '<tr><th>Txid</th>', '<th>Type</th><th>Confirmation</th>'
             '<th>Time</th>',
