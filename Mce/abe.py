@@ -629,7 +629,7 @@ class Abe:
             for label in labels:
                 body += ['&nbsp;<span class="label label-primary">',label,'</span>']
 
-            body += ['</td><td>']
+            body += ['</td><td>']   
             conf = v.get('confirmations', None)
             if conf is None or conf == 0:
                 body += ['<span class="label label-default">Mempool</span>']
@@ -726,7 +726,7 @@ class Abe:
         body += html_keyvalue_tablerow('Addresses', num_addresses)
         body += ['</table>']
         body += ['<h3>General Information</h3>']
-        body += ['<table class="table table-bordered table-striped table-condensed">']
+     '''   body += ['<table class="table table-bordered table-striped table-condensed">']
         #body += ['<colgroup><col class="col-md-4"><col class="col-md-8"></colgroup>']
         for k,v in sorted(info_resp.items()):
             if k in ('nodeaddress', 'port'):
@@ -737,7 +737,7 @@ class Abe:
             if k in ('balance'):
                 body += html_keyvalue_tablerow(k, v, ' XRK')
             else:
-                body += html_keyvalue_tablerow(k, v)
+                body += html_keyvalue_tablerow(k, v)'''
         body += ['</table>']
         body += ['</div></div></div>'] # col, row, container
 
