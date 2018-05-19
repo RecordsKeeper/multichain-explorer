@@ -726,7 +726,7 @@ class Abe:
         body += html_keyvalue_tablerow('Addresses', num_addresses)
         body += ['</table>']
         body += ['<h3>General Information</h3>']
-     '''   body += ['<table class="table table-bordered table-striped table-condensed">']
+        body += ['<table class="table table-bordered table-striped table-condensed">']
         #body += ['<colgroup><col class="col-md-4"><col class="col-md-8"></colgroup>']
         for k,v in sorted(info_resp.items()):
             if k in ('nodeaddress', 'port'):
@@ -735,9 +735,9 @@ class Abe:
                 #v = '%.8g' % v # doesn't work?
                 v = ('%.20f' % v).rstrip('0')  # so instead we force the number of decimal places and strip zeros
             if k in ('balance'):
-                body += html_keyvalue_tablerow(k, v, ' XRK')
+                #body += html_keyvalue_tablerow(k, v, ' XRK')
             else:
-                body += html_keyvalue_tablerow(k, v)'''
+                #body += html_keyvalue_tablerow(k, v)
         body += ['</table>']
         body += ['</div></div></div>'] # col, row, container
 
