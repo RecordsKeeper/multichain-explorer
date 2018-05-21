@@ -1872,16 +1872,16 @@ class Abe:
                 body += ['<div class="alert alert-danger" role="alert">', msg, '</div>']
                 return
     #The segment below is code for creating table, which contains last 5 tansactions by a particular miner address.
-        body += ['<h3>Latest Transactions</h3>'
+       body += ['<h3>LLatest Transactions</h3>'
             '<table class="table table-striped">\n',
             '<tr><th>Txid</th>', '<th>Type</th><th>Confirmation</th>'
             '<th>Time</th>',
             '</tr>\n']
 
         now = time.time() - EPOCH1970
-        try:s
-            mempool = abe.store.get_rawmempool(chain)     #checks transations from mempool and stores them.
-            recenttx = abe.store.get_recent_transactions_as_json(chain, 5)   #stores last 5 transactions.
+        try:
+            mempool = abe.store.get_rawmempool(chain)
+            recenttx = abe.store.get_recent_transactions_as_json(chain, 5)
         except Exception as e:
             return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
@@ -1890,7 +1890,7 @@ class Abe:
             sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
             existing_txids = [txid for (txid, value) in sorted_mempool]
             for tx in sorted_recenttx:
-                if len(sorted_mempool) == 5:
+                if len(sorted_mempool) == 10:
                     break
                 if tx['txid'] not in existing_txids:
                     existing_txids.append(tx['txid'])
