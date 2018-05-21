@@ -1880,12 +1880,12 @@ class Abe:
 
 		now = time.time() - EPOCH1970
 		try:
-			mempool = abe.store.get_rawmempool(chain)
+			#mempool = abe.store.get_rawmempool(chain)
 			recenttx = abe.store.get_recent_transactions_as_json(chain, 10)
 		except Exception as e:
 			return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
-		sorted_mempool = sorted(mempool.items()[:10], key=lambda tup: tup[1]['time'], reverse=True)
+		'''sorted_mempool = sorted(mempool.items()[:10], key=lambda tup: tup[1]['time'], reverse=True)
 		if len(sorted_mempool) < 10:
 			sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
 			existing_txids = [txid for (txid, value) in sorted_mempool]
@@ -1894,9 +1894,9 @@ class Abe:
 					break
 				if tx['txid'] not in existing_txids:
 					existing_txids.append(tx['txid'])
-					sorted_mempool.append((tx['txid'], tx))
+					sorted_mempool.append((tx['txid'], tx))'''
 
-		for (k, v) in sorted_mempool:  # mempool.iteritems():
+		for (k, v) in recenttx:  # mempool.iteritems():
 			txid = k
 			diff = int(now - v['time'])
 			if diff < 60:
