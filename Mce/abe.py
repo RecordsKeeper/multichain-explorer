@@ -1939,7 +1939,7 @@ class Abe:
 				body += ['&nbsp;<span class="label label-primary">',label,'</span>']
 
 			body += ['</td><td>']
-			conf = v.get('confirmations', None)
+			conf = k.get('confirmations', None)
 			if conf is None or conf == 0:
 				body += ['<span class="label label-default">Mempool</span>']
 			else:
