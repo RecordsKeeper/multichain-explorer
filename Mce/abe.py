@@ -1872,25 +1872,25 @@ class Abe:
 				body += ['<div class="alert alert-danger" role="alert">', msg, '</div>']
 				return
 
-        body += ['<h3>Latest Transactions</h3>'
+		body += ['<h3>Latest Transactions</h3>'
 			'<table class="table table-striped">\n',
 			'<tr><th>Txid</th>', '<th>Type</th><th>Confirmation</th>'
 			'<th>Time</th>',
 			'</tr>\n']
 
-	   now = time.time() - EPOCH1970
+		now = time.time() - EPOCH1970
 		try:
 			mempool = abe.store.get_rawmempool(chain)
-			recenttx = abe.store.get_recent_transactions_as_json(chain, 5)
+			recenttx = abe.store.get_recent_transactions_as_json(chain, 10)
 		except Exception as e:
 			return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
-		sorted_mempool = sorted(mempool.items()[:5], key=lambda tup: tup[1]['time'], reverse=True)
-		if len(sorted_mempool) < 5:
+		sorted_mempool = sorted(mempool.items()[:10], key=lambda tup: tup[1]['time'], reverse=True)
+		if len(sorted_mempool) < 10:
 			sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
 			existing_txids = [txid for (txid, value) in sorted_mempool]
 			for tx in sorted_recenttx:
-				if len(sorted_mempool) == 5:
+				if len(sorted_mempool) == 10:
 					break
 				if tx['txid'] not in existing_txids:
 					existing_txids.append(tx['txid'])
@@ -1947,8 +1947,8 @@ class Abe:
 			body += ['</td><td>', elapsed, '</td></tr>']
 
 
-		body += ['</table>'] 
-		return      
+		body += ['</table>']
+		return body      
 
 	# Given an address and asset reference, show transactions for that address and asset
 	def handle_assetaddress(abe, page):
