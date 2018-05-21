@@ -564,7 +564,7 @@ class Abe:
         :return:
         """
         body = []
-        body += ['<h3>LLatest Transactions</h3>'
+        body += ['<h3>Latest Transactions</h3>'
             '<table class="table table-striped">\n',
             '<tr><th>Txid</th>', '<th>Type</th><th>Confirmation</th>'
             '<th>Time</th>',
@@ -629,7 +629,7 @@ class Abe:
             for label in labels:
                 body += ['&nbsp;<span class="label label-primary">',label,'</span>']
 
-            body += ['</td><td>']   
+            body += ['</td><td>']
             conf = v.get('confirmations', None)
             if conf is None or conf == 0:
                 body += ['<span class="label label-default">Mempool</span>']
@@ -881,7 +881,7 @@ class Abe:
                     try:
                         blockjson = abe.store.get_block_by_hash(chain, miner_block['hash'])
                         miner = blockjson['miner']
-                        miner_address = '<a href="' + page['dotdot'] + '/' + escape(chain.name) + '/address/' + miner + '">' + miner + '</a>'
+                        miner_address = miner
                     except Exception:
                         miner_address = "Unknown"
 
@@ -889,7 +889,7 @@ class Abe:
                 '<tr><td><a href="', page['dotdot'], escape(chain.name), '/block/',
                 abe.store.hashout_hex(hash),
                 '">', height, '</a>'
-                '</td><td><a href="', page['dotdot'], escape(chain.name), '/address/', miner, '">', miner, '</a>'
+                '</td><td>', miner_address,
                 '</td><td>', format_time(int(nTime)),
                 '</td><td>', num_tx,
                 #'</td><td>', format_satoshis(value_out, chain),
@@ -1871,86 +1871,6 @@ class Abe:
                 msg= "Failed to get balance for address: I/O error({0}): {1}".format(e.errno, e.strerror)
                 body += ['<div class="alert alert-danger" role="alert">', msg, '</div>']
                 return
-    #The segment below is code for creating table, which contains last 5 tansactions by a particular miner address.
-        body += ['<h3>Latest Transactions</h3>'
-            '<table class="table table-striped">\n',
-            '<tr><th>Txid</th>', '<th>Type</th><th>Confirmation</th>'
-            '<th>Time</th>',
-            '</tr>\n']
-
-        now = time.time() - EPOCH1970
-        try:
-            mempool = abe.store.get_rawmempool(chain)     #checks transations from mempool and stores them.
-            recenttx = abe.store.get_recent_transactions_as_json(chain, 5)   #stores last 5 transactions.
-        except Exception as e:
-            return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
-
-        sorted_mempool = sorted(mempool.items()[:5], key=lambda tup: tup[1]['time'], reverse=True)
-        if len(sorted_mempool) < 5:
-            sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
-            existing_txids = [txid for (txid, value) in sorted_mempool]
-            for tx in sorted_recenttx:
-                if len(sorted_mempool) == 5:
-                    break
-                if tx['txid'] not in existing_txids:
-                    existing_txids.append(tx['txid'])
-                    sorted_mempool.append((tx['txid'], tx))
-                   
-
-        for (k, v) in recenttx:  # mempool.iteritems():
-            txid = k
-            diff = int(now - v['time'])
-            if diff < 60:
-                elapsed = "< 1 minute"
-            elif diff < 3600:
-                elapsed = "< " + str(int((diff / 60)+0.5)) + " minutes"
-            elif diff < 3600*24*2:
-                elapsed = "< " + str(int(diff / 3600)) + " hours"
-            else:
-                elapsed = str(int((diff / 3600) / 24)) + " days"
-
-
-            body += ['<tr><td>']
-            if abe.store.does_transaction_exist(txid):
-                body += ['<a href="' + page['dotdot'] + escape(chain.name) + '/tx/' + txid + '">', txid, '</a>']
-                labels = abe.store.get_labels_for_tx(txid, chain)
-            else:
-                body += ['<a href="' + page['dotdot'] + escape(chain.name) + '/mempooltx/' + txid + '">', txid, '</a>']
-                json = None
-                try:
-                    json = abe.store.get_rawtransaction_decoded(chain, txid)
-                except Exception:
-                    pass
-
-                if json is not None:
-                    scriptpubkeys = [vout['scriptPubKey']['hex'] for vout in json['vout']]
-                    labels = None
-                    d = set()
-                    for hex in scriptpubkeys:
-                        binscript = binascii.unhexlify(hex)
-                        tmp = abe.store.get_labels_for_scriptpubkey(chain, binscript)
-                        d |= set(tmp)
-                    labels = list(d)
-
-            if labels is None:
-                labels = []
-            body += ['</td><td>']
-            for label in labels:
-                body += ['&nbsp;<span class="label label-primary">',label,'</span>']
-
-            body += ['</td><td>']   
-            conf = v.get('confirmations', None)
-            if conf is None or conf == 0:
-                body += ['<span class="label label-default">Mempool</span>']
-            else:
-                body += ['<span class="label label-info">', conf, ' confirmations</span>']
-
-            body += ['</td><td>', elapsed, '</td></tr>']
-
-
-        body += ['</table>']
-        return body
-               
 
     # Given an address and asset reference, show transactions for that address and asset
     def handle_assetaddress(abe, page):
