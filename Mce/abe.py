@@ -1885,7 +1885,8 @@ class Abe:
 		except Exception as e:
 			return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
-		sorted_mempool = sorted(mempool.items()[:5], key=lambda tup: tup[1]['time'], reverse=True)
+		sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
+		'''sorted_mempool = sorted(mempool.items()[:5], key=lambda tup: tup[1]['time'], reverse=True)
 		if len(sorted_mempool) < 5:
 			sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
 			existing_txids = [txid for (txid, value) in sorted_mempool]
@@ -1894,11 +1895,11 @@ class Abe:
 					break
 				if tx['txid'] not in existing_txids:
 					existing_txids.append(tx['txid'])
-					sorted_mempool.append((tx['txid'], tx))
+					sorted_mempool.append((tx['txid'], tx))'''
 
-		for (k, v) in mempool:  # mempool.iteritems():
-			txid = k
-			diff = int(now - v['time'])
+		for k in sorted_recenttx:  # mempool.iteritems():
+			txid = k['txid']
+			diff = int(now - k['time'])
 			if diff < 60:
 				elapsed = "< 1 minute"
 			elif diff < 3600:
