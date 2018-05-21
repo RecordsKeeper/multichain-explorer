@@ -1872,16 +1872,16 @@ class Abe:
 				body += ['<div class="alert alert-danger" role="alert">', msg, '</div>']
 				return
 
-        body += ['<h3>Latest Transactions</h3>'
-			 '<table class="table table-striped">\n',
-			 '<tr><th>Txid</th>','<th>Type</th><th>Confirmation</th>'
-			 '<th>Time</th>',
-			 '</tr>\n']  
+        body += ['<h3>Latest Tranzactions</h3>'
+			'<table class="table table-striped">\n',
+			'<tr><th>Txid</th>', '<th>Type</th><th>Confirmation</th>'
+			'<th>Time</th>',
+			'</tr>\n']
 
 		now = time.time() - EPOCH1970
 		try:
 			mempool = abe.store.get_rawmempool(chain)
-			recenttx = abe.store.get_recent_transactions_as_json(chain, 5)
+			recenttx = abe.store.get_recent_transactions_as_json(chain, 10)
 		except Exception as e:
 			return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
