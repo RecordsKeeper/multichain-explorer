@@ -1880,23 +1880,23 @@ class Abe:
 
 		now = time.time() - EPOCH1970
 		try:
-			#mempool = abe.store.get_rawmempool(chain)
-			recenttx = abe.store.get_recent_transactions_as_json(chain, 10)
+			mempool = abe.store.get_rawmempool(chain)
+			recenttx = abe.store.get_recent_transactions_as_json(chain, 5)
 		except Exception as e:
 			return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
-		'''sorted_mempool = sorted(mempool.items()[:10], key=lambda tup: tup[1]['time'], reverse=True)
-		if len(sorted_mempool) < 10:
+		sorted_mempool = sorted(mempool.items()[:5], key=lambda tup: tup[1]['time'], reverse=True)
+		if len(sorted_mempool) < 5:
 			sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
 			existing_txids = [txid for (txid, value) in sorted_mempool]
 			for tx in sorted_recenttx:
-				if len(sorted_mempool) == 10:
+				if len(sorted_mempool) == 5:
 					break
 				if tx['txid'] not in existing_txids:
 					existing_txids.append(tx['txid'])
-					sorted_mempool.append((tx['txid'], tx))'''
+					sorted_mempool.append((tx['txid'], tx))
 
-		for (k, v) in recenttx:  # mempool.iteritems():
+		for (k, v) in mempool:  # mempool.iteritems():
 			txid = k
 			diff = int(now - v['time'])
 			if diff < 60:
