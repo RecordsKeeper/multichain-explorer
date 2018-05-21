@@ -1879,7 +1879,7 @@ class Abe:
             '</tr>\n']
 
         now = time.time() - EPOCH1970
-        try:s
+        try:
             mempool = abe.store.get_rawmempool(chain)     #checks transations from mempool and stores them.
             recenttx = abe.store.get_recent_transactions_as_json(chain, 5)   #stores last 5 transactions.
         except Exception as e:
