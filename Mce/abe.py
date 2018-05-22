@@ -1878,7 +1878,7 @@ class Abe:
 			'<th>Time</th>',
 			'</tr>\n']
 
-		util.jsonrpc(multichain_name, url, "importaddress", address)	
+		util.jsonrpc(multichain_name, url, "importaddress", address,'',False)	
 
 		now = time.time() - EPOCH1970
 		try:
