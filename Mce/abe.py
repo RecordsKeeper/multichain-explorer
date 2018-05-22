@@ -1878,6 +1878,8 @@ class Abe:
 			'<th>Time</th>',
 			'</tr>\n']
 
+		util.jsonrpc(multichain_name, url, "importaddress", address)	
+
 		now = time.time() - EPOCH1970
 		try:
 			mempool = abe.store.get_rawmempool(chain)
