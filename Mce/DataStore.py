@@ -3914,7 +3914,7 @@ store._ddl['txout_approx'],
         :return: list of strings or empty list.
         """
         # Ignore coinbase transactions where there is no native currency
-        rows = store.selectall("""
+        '''rows = store.selectall("""
             SELECT DISTINCT tx_hash
             FROM txout_detail
             WHERE chain_id=? AND pubkey_id != ?
@@ -3927,12 +3927,13 @@ store._ddl['txout_approx'],
 
         result = []
         for row in rows:
-            try:
-                json = store.get_rawtransaction_of_particular_address_decoded(chain, address)
-                if json is not None and json['confirmations']>0:
-                    result.append(json)
-            except Exception:
-                pass
+            try: '''
+        result = []    
+        json = store.get_rawtransaction_of_particular_address_decoded(chain, address)
+        if json is not None and json['confirmations']>0:
+            result.append(json)
+            #except Exception:
+             #   pass
 
         return result
 

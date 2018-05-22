@@ -1881,12 +1881,12 @@ class Abe:
 		now = time.time() - EPOCH1970
 		try:
 			mempool = abe.store.get_rawmempool(chain)
-			recenttx = abe.store.get_recent_transactions_of_particular_address_as_json(chain, address, 5)
+			recenttx = abe.store.get_recent_transactions_as_json(chain, address, 5)
 		except Exception as e:
 			return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
 		sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
-		#sorted_recenttx = [ad for ad in sorted_recenttx if ((ad['addresses']== address) | ad['myaddresses']== address) ]
+		sorted_recenttx = [ad for ad in sorted_recenttx if ((util.jsonrpc(multichain_name, url, "getaddresstransaction", address, ad['txid'])).result != None) ]
 		'''sorted_mempool = sorted(mempool.items()[:5], key=lambda tup: tup[1]['time'], reverse=True)
 		if len(sorted_mempool) < 5:
 			sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
