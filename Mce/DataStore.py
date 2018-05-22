@@ -4299,7 +4299,7 @@ store._ddl['txout_approx'],
             raise e
         return resp
 
-    def get_rawtransaction_of_particular_address_decoded(store, chain, address):
+    def get_rawtransaction_of_particular_address_decoded(store, chain, address, limit=5):
         """
         Get the result of getrawtransaction json-rpc command as json object
         :param chain:
@@ -4308,18 +4308,18 @@ store._ddl['txout_approx'],
         url = store.get_url_by_chain(chain)
         multichain_name = store.get_multichain_name_by_id(chain.id)
         result =[]
-        resp = None
-       for i in range(0, 10):
-        try:
-            resp = util.jsonrpc(multichain_name, url, "getrawtransaction", tx_hash, 1)
-            json = store.resp
-            result.append(json)
-        except util.JsonrpcException as e:
-            raise Exception("JSON-RPC error({0}): {1}".format(e.code, e.message))
-        except IOError as e:
-            raise e
-
-        return result           
+        resp = []
+        #for i in range(0, 5):
+            #try:
+        resp[] = util.store.jsonrpc(multichain_name, url, "listaddresstransactions", address)
+                
+            '''    result.append(json)
+            except util.JsonrpcException as e:
+                raise Exception("JSON-RPC error({0}): {1}".format(e.code, e.message))
+            except IOError as e:
+                raise e
+            '''
+        return resp           
 
     def get_labels_for_tx(store, tx_hash, chain):
         """
