@@ -4312,7 +4312,7 @@ store._ddl['txout_approx'],
         #for i in range(0, 5):
             #try:
         resp = util.store.jsonrpc(multichain_name, url, "listaddresstransactions", address)
-                
+        print resp         
         return resp           
 
     def get_labels_for_tx(store, tx_hash, chain):
