@@ -4311,7 +4311,7 @@ store._ddl['txout_approx'],
         resp = []
         #for i in range(0, 5):
             #try:
-        resp[] = util.store.jsonrpc(multichain_name, url, "listaddresstransactions", address)
+        resp = util.store.jsonrpc(multichain_name, url, "listaddresstransactions", address)
                 
             '''    result.append(json)
             except util.JsonrpcException as e:
