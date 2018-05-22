@@ -1881,7 +1881,7 @@ class Abe:
 		now = time.time() - EPOCH1970
 		try:
 			mempool = abe.store.get_rawmempool(chain)
-			recenttx = abe.store.get_recent_transactions_as_json(chain, 5)
+			recenttx = abe.store.get_recent_transactions_of_particular_address_as_json(chain, address, 5)
 		except Exception as e:
 			return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
