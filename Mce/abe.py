@@ -1886,6 +1886,7 @@ class Abe:
 			return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
 		sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
+		sorted_recenttx = [ad for ad in sorted_recenttx if ad['address']== address]
 		'''sorted_mempool = sorted(mempool.items()[:5], key=lambda tup: tup[1]['time'], reverse=True)
 		if len(sorted_mempool) < 5:
 			sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
