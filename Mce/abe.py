@@ -1948,7 +1948,6 @@ class Abe:
 
 			body += ['</td><td>', elapsed, '</td></tr>']
 
-
 		body += ['</table>']
 		return body      
 

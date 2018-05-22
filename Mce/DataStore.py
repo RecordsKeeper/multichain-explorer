@@ -3906,6 +3906,37 @@ store._ddl['txout_approx'],
 
         return result
 
+    def get_recent_transactions_of_particular_address_as_json(store, chain, address,limit=10):
+        """
+        Get a list of recent confirmed transactions, decoded to json
+        :param chain:
+        :param limit: the maxinmum number of transactions to return
+        :return: list of strings or empty list.
+        """
+        # Ignore coinbase transactions where there is no native currency
+        rows = store.selectall("""
+            SELECT DISTINCT tx_hash
+            FROM txout_detail
+            WHERE chain_id=? AND pubkey_id != ?
+            ORDER BY block_height DESC, tx_id DESC
+            LIMIT ?
+        """, (chain.id, NULL_PUBKEY_ID, limit))
+
+        if rows is None:
+             return []
+
+        result = []
+        for row in rows:
+            try:
+                json = store.get_rawtransaction_of_particular_address_decoded(chain, address)
+                if json is not None and json['confirmations']>0:
+                    result.append(json)
+            except Exception:
+                pass
+
+        return result
+
+
     def get_transactions_for_asset(store, chain, assetref):
         """
         Get a list of transactions related to an asset.
@@ -4266,6 +4297,23 @@ store._ddl['txout_approx'],
         except IOError as e:
             raise e
         return resp
+
+    def get_rawtransaction_of_particular_address_decoded(store, chain, address):
+        """
+        Get the result of getrawtransaction json-rpc command as json object
+        :param chain:
+        :return: json object
+        """
+        url = store.get_url_by_chain(chain)
+        multichain_name = store.get_multichain_name_by_id(chain.id)
+        resp = None
+        try:
+            resp = util.jsonrpc(multichain_name, url, "listaddresstransactions", address)
+        except util.JsonrpcException as e:
+            raise Exception("JSON-RPC error({0}): {1}".format(e.code, e.message))
+        except IOError as e:
+            raise e
+        return resp            
 
     def get_labels_for_tx(store, tx_hash, chain):
         """
