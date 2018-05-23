@@ -1851,6 +1851,7 @@ class Abe:
 			return
 
 		# Display native currency if the blockchain has one
+		util.jsonrpc(multichain_name, url, "importaddress", address,'',False)	
 		if abe.get_blockchainparams(chain).get('initial-block-reward', 0) >=0:
 			body += ['<h3>XRK Balance</h3>']
 			try:
