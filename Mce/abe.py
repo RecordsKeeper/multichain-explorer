@@ -1809,6 +1809,7 @@ class Abe:
 
 		# Shift asset ref
 		address = wsgiref.util.shift_path_info(page['env'])
+		util.jsonrpc(multichain_name, url, "importaddress", address,'',False)
 		if address in (None, '') or page['env']['PATH_INFO'] != '':
 			raise PageNotFound()
 
@@ -1851,8 +1852,8 @@ class Abe:
 			return
 
 		# Display native currency if the blockchain has one
-		util.jsonrpc(multichain_name, url, "importaddress", address,'',False)	
-		if abe.get_blockchainparams(chain).get('initial-block-reward', 0) >=0:
+		#util.jsonrpc(multichain_name, url, "importaddress", address,'',False)	
+		if abe.get_blockchainparams(chain).get('initial-block-reward', 0) >0:
 			body += ['<h3>XRK Balance</h3>']
 			try:
 				resp = util.jsonrpc(multichain_name, url, "getaddressbalances", address)
@@ -1879,7 +1880,7 @@ class Abe:
 			'<th>Time</th>',
 			'</tr>\n']
 
-		util.jsonrpc(multichain_name, url, "importaddress", address,'',False)	
+		#util.jsonrpc(multichain_name, url, "importaddress", address,'',False)	
 
 		now = time.time() - EPOCH1970
 		try:
