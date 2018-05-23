@@ -1809,7 +1809,6 @@ class Abe:
 
 		# Shift asset ref
 		address = wsgiref.util.shift_path_info(page['env'])
-		util.jsonrpc(multichain_name, url, "importaddress", address,'',False)
 		if address in (None, '') or page['env']['PATH_INFO'] != '':
 			raise PageNotFound()
 
@@ -1880,7 +1879,7 @@ class Abe:
 			'<th>Time</th>',
 			'</tr>\n']
 
-		#util.jsonrpc(multichain_name, url, "importaddress", address,'',False)	
+		util.jsonrpc(multichain_name, url, "importaddress", address,'',False)	
 
 		now = time.time() - EPOCH1970
 		try:
