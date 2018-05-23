@@ -1873,21 +1873,25 @@ class Abe:
 				body += ['<div class="alert alert-danger" role="alert">', msg, '</div>']
 				return
 
+		#Creating table which will contain the transactions related to a particular address
 		body += ['<h3>Latest Transactions</h3>'
 			'<table class="table table-striped">\n',
 			'<tr><th>Txid</th>', '<th>Type</th><th>Confirmation</th>'
 			'<th>Time</th>',
 			'</tr>\n']
 
+		#Importing the address that might be present on a different node i.e. the one on which explorer is not running 
 		util.jsonrpc(multichain_name, url, "importaddress", address,'',False)	
 
 		now = time.time() - EPOCH1970
 		try:
 			mempool = abe.store.get_rawmempool(chain)
+			#get_rawtransaction_of_particular_address_decoded is a function which returns list of transactions
 			recenttx = abe.store.get_rawtransaction_of_particular_address_decoded(chain, address, 5)
 		except Exception as e:
 			return ['<div class="alert alert-danger" role="warning">', e ,'</div>']
 
+		#sorting the trasactions recieved according to time of transaction
 		sorted_recenttx = sorted(recenttx, key=lambda tx: tx['time'], reverse=True)
 		#sorted_recenttx = [ad for ad in sorted_recenttx if ((util.jsonrpc(multichain_name, url, "getaddresstransaction", address, ad['txid'])).result != None) ]
 		'''sorted_mempool = sorted(mempool.items()[:5], key=lambda tup: tup[1]['time'], reverse=True)
