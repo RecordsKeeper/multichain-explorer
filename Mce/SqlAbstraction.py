@@ -18,6 +18,8 @@
 
 import re
 import logging
+MAX_SCRIPT = 1000000
+MAX_PUBKEY = 65
 
 NO_CLOB = 'BUG_NO_CLOB'
 STMT_RE = re.compile(r"([^']+)((?:'[^']*')?)")
@@ -26,7 +28,7 @@ class SqlAbstraction(object):
 
     """
     Database abstraction class based on DB-API 2 and standard SQL with
-    workarounds to support SQLite3
+    workarounds to support SQLite3, MySQL
     """
 
     def __init__(sql, args):
@@ -155,6 +157,11 @@ class SqlAbstraction(object):
             create_sequence = lambda key: sql._create_sequence_update(key)
             drop_sequence = lambda key: sql._drop_sequence_update(key)
 
+        elif val == 'mysql':
+            new_id = lambda key: sql._new_id_mysql(key)
+            create_sequence = lambda key: sql._create_sequence_mysql(key)
+            drop_sequence = lambda key: sql._drop_sequence_mysql(key)    
+
         else:
             raise Exception("Unsupported sequence-type %s" % (val,))
 
@@ -167,6 +174,11 @@ class SqlAbstraction(object):
         val = sql.config.get('concat_style')
         if val in (None, 'ansi'):
             pass
+        elif val == 'mysql':
+            transform_stmt = sql._transform_concat(transform_stmt)
+            # Also squeeze in MySQL VARBINARY length fix
+            # Some MySQL version do not auto-convert to BLOB
+            transform_stmt = sql._transform_varbinary(transform_stmt)    
 
         transform_stmt = sql._append_table_epilogue(transform_stmt)
 
@@ -382,6 +394,13 @@ class SqlAbstraction(object):
             return fn(concat_re.sub(repl, stmt))
         return ret
 
+    def _transform_varbinary(sql, fn):
+        varbinary_re = re.compile(r"VARBINARY\(" + str(MAX_SCRIPT) + "\)")
+        def ret(stmt):
+            # Suitable for prefix+length up to 16,777,215 (2^24 - 1)
+            return fn(varbinary_re.sub("MEDIUMBLOB", stmt))
+        return ret    
+
     def _append_table_epilogue(sql, fn):
         epilogue = sql.config.get('create_table_epilogue', "")
         if epilogue == "":
@@ -509,6 +528,20 @@ class SqlAbstraction(object):
     def _drop_sequence(sql, key):
         sql.ddl("DROP SEQUENCE %s_seq" % (key,))
 
+    def _create_sequence_mysql(sql, key):
+        sql.ddl("CREATE TABLE %s_seq (id BIGINT AUTO_INCREMENT PRIMARY KEY)"
+                " AUTO_INCREMENT=%d"
+                % (key, sql._get_sequence_initial_value(key)))
+
+    def _drop_sequence_mysql(sql, key):
+        sql.ddl("DROP TABLE %s_seq" % (key,))
+
+    def _new_id_mysql(sql, key):
+        sql.sql("INSERT INTO " + key + "_seq () VALUES ()")
+        (ret,) = sql.selectrow("SELECT LAST_INSERT_ID()")
+        if ret % 1000 == 0:
+            sql.sql("DELETE FROM " + key + "_seq WHERE id < ?", (ret,))
+        return ret
 
     def commit(sql):
         sql.sqllog.info("COMMIT")
@@ -588,7 +621,7 @@ class SqlAbstraction(object):
             "Integer type " + tests[0] + " fails test")
 
     def configure_sequence_type(sql):
-        for val in ['update']:
+        for val in ['mysql','update']:
             sql.config['sequence_type'] = val
             sql._set_flavour()
             if sql._test_sequence_type():
@@ -878,7 +911,7 @@ class SqlAbstraction(object):
             sql.drop_table_if_exists("%stest_1" % sql.prefix)
 
     def configure_concat_style(sql):
-        for val in ['ansi']:
+        for val in ['ansi','mysql']:
             sql.config['concat_style'] = val
             sql._set_flavour()
             if sql._test_concat_style():
